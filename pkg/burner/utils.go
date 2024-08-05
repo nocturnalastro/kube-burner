@@ -72,7 +72,8 @@ func setMetadataLabels(obj *unstructured.Unstructured, labels map[string]string)
 func yamlToUnstructured(fileName string, y []byte, uns *unstructured.Unstructured) (runtime.Object, *schema.GroupVersionKind) {
 	o, gvk, err := scheme.Codecs.UniversalDeserializer().Decode(y, nil, uns)
 	if err != nil {
-		log.Fatalf("Error decoding YAML (%s): %s", fileName, err)
+		log.Fatalf("Failed to decode\n%s\n\n%s:\n%s\n", err, fileName, string(y))
+		// log.Fatalf("Error decoding YAML (%s): %s", fileName, err)
 	}
 	return o, gvk
 }
